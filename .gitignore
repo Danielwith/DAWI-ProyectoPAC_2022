@@ -4,8 +4,6 @@ target/
 .mvn
 .project
 .classpath	
-mvnw
-mvnw.cmd
 !**/src/main/**
 !**/src/test/**
 .apt_generated
