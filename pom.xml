@@ -14,8 +14,16 @@
 	<name>ProyectoPAC_2022</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
+		
 		<java.version>17</java.version>
+		
 	</properties>
+	<repositories>
+		<repository>
+			<id>jaspersoft-third-party</id>
+			<url>http://jaspersoft.jfrog.io/jaspersoft/third-party-ce-artifacts/</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -59,13 +67,14 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
-		<dependency>
-		    <groupId>net.sf.jasperreports</groupId>
-		    <artifactId>jasperreports</artifactId>
-		    <version>6.9.0</version>
-		</dependency>
-	</dependencies>
+<dependency>
+    <groupId>net.sf.jasperreports</groupId>
+    <artifactId>jasperreports</artifactId>
+    <version>6.20.0</version>
+</dependency>
 
+	</dependencies>
+	
 	<build>
 		<plugins>
 			<plugin>
