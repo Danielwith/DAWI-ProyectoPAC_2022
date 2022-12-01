@@ -60,18 +60,7 @@ public class EvaluacionController {
 	@RequestMapping("/buscar")
 	@ResponseBody
 	public List<InscripcionPAC> buscarPorID(@RequestParam("entidad") int codEntidad) {
-		List<InscripcionPAC> data = inscripcionService.buscarPorID(codEntidad);
-		for(var i : data) {
-			System.out.println("------------------------- DATA --------------------------");
-			System.out.println("idInscripcion:"+i.getIdInscripcion());
-			System.out.println("año_pac:"+i.getAno_pac());
-			System.out.println("fecha:"+i.getFecha());
-			System.out.println("presupuesto:"+i.getPresupuesto());
-			System.out.println("entidad_publica"+i.getNomEstado());
-			System.out.println("estado_pac"+i.getIdEstado().getDescripcion());
-			System.out.println("------------------------- FIN --------------------------");
-		}
-		
+		List<InscripcionPAC> data = inscripcionService.buscarPorID(codEntidad);		
 		return data;
 	}
 	

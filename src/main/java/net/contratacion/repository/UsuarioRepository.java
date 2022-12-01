@@ -10,4 +10,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 	public Usuario findByLogin(String login);
 	@Query(value="select max(iduser)+1 from users",nativeQuery=true)
 	public int maxLoginID();
+	public Usuario findByCodigo(int codigo);
+	public void deleteByCodigo(int cod);
 }

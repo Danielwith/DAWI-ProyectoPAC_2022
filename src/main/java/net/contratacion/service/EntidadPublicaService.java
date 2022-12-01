@@ -28,4 +28,8 @@ public class EntidadPublicaService {
 	public List<EntidadPublica> encontrarPorUsuario(int codUsu){
 		return repo.listEntByUsuario(codUsu);
 	}
+	
+	public EntidadPublica encontrarPorID(int cod) {
+		return repo.findById(cod).orElse(null);
+	}
 }

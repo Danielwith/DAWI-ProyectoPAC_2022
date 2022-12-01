@@ -28,7 +28,6 @@ import net.contratacion.service.DetalleRegProyectoService;
 import net.contratacion.service.EntidadPublicaService;
 import net.contratacion.service.RegistroProyectoService;
 import net.contratacion.service.TipoBienService;
-import net.contratacion.service.UsuarioDetailsServiceImpl;
 
 @Controller
 @SessionAttributes({"DATA","USUARIO",""})
@@ -37,9 +36,6 @@ public class DetalleProyectoController {
 	
 	@Autowired
 	private TipoBienService tipoBienService;
-	
-	@Autowired
-	private UsuarioDetailsServiceImpl UsuarioService;
 	
 	@Autowired
 	private EntidadPublicaService EntidadService;
@@ -59,7 +55,7 @@ public class DetalleProyectoController {
 	@RequestMapping("/")
 	public String listar(Model model) {
 		Usuario user = (Usuario) model.getAttribute("USUARIO");
-		List<DetalleProyecto> lista = dpService.listarDetallePorUsuario(user.getCodigo()); /**/
+		List<DetalleProyecto> lista = dpService.listarDetallePorUsuario(user.getCodigo());
 		List<TipoBienes> listaTipo = tipoBienService.listarTipoBienes();
 		
 		model.addAttribute("listarTiposBienes",listaTipo);
@@ -71,7 +67,7 @@ public class DetalleProyectoController {
 	@ResponseBody
 	public List<EntidadPublica> entidadPublica(Model model) {
 		Usuario user = (Usuario) model.getAttribute("USUARIO");
-		List<EntidadPublica> entidad = EntidadService.encontrarPorUsuario(user.getCodigo());/**/
+		List<EntidadPublica> entidad = EntidadService.encontrarPorUsuario(user.getCodigo());
 		return entidad;
 	}
 	
@@ -192,6 +188,11 @@ public class DetalleProyectoController {
 		}
 		
 		lista=new ArrayList<DetalleRegProyecto>();
+		
+		DetalleProyecto inactivo = dpService.buscarporID(idProy);
+		inactivo.setActivo("0");
+		dpService.guardar(inactivo);
+		
 		redirect.addFlashAttribute("MENSAJE","Proyecto registrado correctamente.");
 		redirect.addFlashAttribute("ICONO","success");
 		}

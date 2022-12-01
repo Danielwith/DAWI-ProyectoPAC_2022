@@ -29,4 +29,12 @@ public class DetalleProyectoService {
 		return repo.listDet(idInscripcion);
 	}
 	
+	public DetalleProyecto buscarporID(int cod) {
+		return repo.findById(cod).orElse(null);
+	}
+	
+	public void guardar(DetalleProyecto bean) {
+		repo.save(bean);
+	}
+	
 }

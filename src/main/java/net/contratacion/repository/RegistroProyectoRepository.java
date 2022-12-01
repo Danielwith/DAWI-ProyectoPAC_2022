@@ -13,10 +13,10 @@ public interface RegistroProyectoRepository extends JpaRepository<RegistroProyec
 	@Query(value="SELECT MAX(id) FROM proyecto_pac_2022_22.tb_registroproyecto",nativeQuery = true)
 	public int codReq();
 	
-	@Query("SELECT rp from RegistroProyecto rp")
-	public List<RegistroProyecto> listRegDetalle();
+	@Query("SELECT rp from RegistroProyecto rp WHERE identidad.idEntidad=?1")
+	public List<RegistroProyecto> listRegDetalle(int idEntidad);
 	
-	@Query("SELECT rp from RegistroProyecto rp WHERE rp.fechaReg BETWEEN ?1 AND ?2")
-	public List<RegistroProyecto> filtrarPorFecha(String ini, String fin);
+	@Query("SELECT rp from RegistroProyecto rp WHERE (rp.fechaReg BETWEEN ?1 AND ?2) AND (rp.identidad.idEntidad LIKE ?3)")
+	public List<RegistroProyecto> filtrarPorFecha(String ini, String fin, int idEntidad);
 
 }

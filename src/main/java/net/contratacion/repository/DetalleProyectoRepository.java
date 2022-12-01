@@ -15,7 +15,7 @@ public interface DetalleProyectoRepository extends JpaRepository<DetalleProyecto
 			+ "on dp.id_inscripcion= ip.id_inscripcion join estado_pac e\r\n"
 			+ "on ip.estado_pac=e.id join entidadpublica ep\r\n"
 			+ "on ip.entidad_publica=ep.id_entidad\r\n"
-			+ "where ep.iduser=?1 and ip.estado_pac=1",nativeQuery=true)
+			+ "where ep.iduser=?1 and ip.estado_pac=1 and dp.activo=1",nativeQuery=true)
 	public List<DetalleProyecto> listDETbyUser(int idUsu);
 	
 	@Query(value="select concat('DET000-',(count(num_detalle)+1))numero from tb_registroProyecto",nativeQuery=true)

@@ -139,6 +139,7 @@ public class InscripcionPACController {
 					dp.setTitulo(d.getTitulo());
 					dp.setDescripcion(d.getDescripcion());
 					dp.setMonto(d.getMonto());
+					dp.setActivo("1");
 					listaDetalle.add(dp);
 				}
 			pac.setListaProyectos(listaDetalle);

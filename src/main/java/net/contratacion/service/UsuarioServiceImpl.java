@@ -51,4 +51,15 @@ public class UsuarioServiceImpl implements UsuarioService{
 		return repo.findByLogin(email);
 	}
 
+	@Override
+	public Usuario getUserByCode(Usuario codigo) {
+		return repo.findByCodigo(codigo.getCodigo());	
+	}
+
+	@Override
+	public void deleteUser(int codigo) {
+		repo.deleteById(codigo);
+		
+	}
+
 }

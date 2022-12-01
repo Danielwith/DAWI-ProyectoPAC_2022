@@ -15,6 +15,8 @@ public class DetalleProyecto {
 	private String descripcion;
 	@Column(name = "monto")
 	private double monto;
+	@Column(name = "activo")
+	private String activo;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_inscripcion")
@@ -59,4 +61,14 @@ public class DetalleProyecto {
 	public void setIdInscripcionPAC(InscripcionPAC idInscripcionPAC) {
 		this.idInscripcionPAC = idInscripcionPAC;
 	}
+
+	public String getActivo() {
+		return activo;
+	}
+
+	public void setActivo(String activo) {
+		this.activo = activo;
+	}
+	
+	
 }

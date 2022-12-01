@@ -114,7 +114,7 @@ public class BienesController {
 			redirect.addFlashAttribute("ICONO","success");
 		}
 		catch (Exception e) {
-			redirect.addFlashAttribute("MENSAJE", "Error en la eliminación");
+			redirect.addFlashAttribute("MENSAJE", "Bien o Servicio esta siendo utilizado actualmente");
 			redirect.addFlashAttribute("ICONO","error");
 			e.printStackTrace();
 		}

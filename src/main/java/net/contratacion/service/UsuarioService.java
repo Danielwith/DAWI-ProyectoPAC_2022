@@ -11,4 +11,6 @@ public interface UsuarioService {
 	public int maxIDUser();
 	public Usuario updateUser(Usuario user);
 	public Usuario getUser(String email);
+	public Usuario getUserByCode(Usuario usuario);
+	public void deleteUser(int codigo);
 }

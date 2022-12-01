@@ -27,11 +27,11 @@ public class RegistroProyectoService {
 		return repo.findById(cod);
 	}
 	
-	public List<RegistroProyecto> listarRegDetalle(){
-		return repo.listRegDetalle();
+	public List<RegistroProyecto> listarRegDetalle(int idEntidad){
+		return repo.listRegDetalle(idEntidad);
 	}
 	
-	public List<RegistroProyecto> filtrarRegDetalle(String inicio, String fin){
-		return repo.filtrarPorFecha(inicio, fin);
+	public List<RegistroProyecto> filtrarRegDetalle(String inicio, String fin,int idEntidad){
+		return repo.filtrarPorFecha(inicio, fin, idEntidad);
 	}
 }

@@ -84,15 +84,16 @@ public class EntidadPublicaController {
 			}
 			else {
 				try {
-					Usuario usuarioGet = regUserService.getUser(nom);
+					EntidadPublica entidUser = entidadService.encontrarPorID(cod);
+					Usuario usuarioGet = regUserService.getUserByCode(entidUser.getIdUser());
 					usuarioGet.setLogin(nom);
 					if(usercon.trim() != "") {
 						usuarioGet.setClave(usercon);
 					}
-					
 					regUserService.updateUser(usuarioGet);
 					
 					ent.setIdEntidad(cod);
+					ent.setIdUser(usuarioGet);
 					entidadService.guardar(ent);
 					redirect.addFlashAttribute("MENSAJE","Entidad modificada con éxito");
 					redirect.addFlashAttribute("ICONO","success");
@@ -115,7 +116,12 @@ public class EntidadPublicaController {
 	@RequestMapping("/eliminar")
 	public String eliminar(@RequestParam("codEliminar") int cod,RedirectAttributes redirect) {
 		try {
+			EntidadPublica entidUser = entidadService.encontrarPorID(cod);
+			Usuario usuarioGet = regUserService.getUserByCode(entidUser.getIdUser());
+			
 			entidadService.eliminar(cod);
+			regUserService.deleteUser(usuarioGet.getCodigo());
+			
 			redirect.addFlashAttribute("MENSAJE", "Entidad eliminada con éxito");
 			redirect.addFlashAttribute("ICONO","success");
 			
