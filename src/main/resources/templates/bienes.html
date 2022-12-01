@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Mantenimiento de Bienes y Servicios</title>
+
+  <!-- Custom fonts for this template-->
+  <link th:href="@{/resources/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link th:href="@{/resources/css/sb-admin-2.min.css}" rel="stylesheet">
+
+  <!-- Custom styles for this page -->
+  <link th:href="@{/resources/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul th:insert="menu :: sidebar" th:remove="tag"></ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav th:insert="menu :: topbar" th:remove="tag"></nav>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800 text-center">Mantenimiento de Bienes y Servicios</h1>
+          <br />
+          <br />
+
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary btn-agregar" data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop">
+            AGREGAR
+          </button>
+
+          <!-- Modal Agregar -->
+          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">Bienes y Servicios</h5>
+                </div>
+
+                <div class="modal-body">
+                  <form id="idRegistrar" method="post" action="/admin/mantBienes/grabar">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1" class="form-label">CODIGO</label>
+                      <input type="text" class="form-control" name="codigo" id="idCodigo" readonly value="0">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1" class="form-label">DESCRIPCION</label>
+                      <input type="text" class="form-control" name="descripcion" id="idDescripcion">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1" class="form-label">UNIDAD DE MEDIDA</label>
+                      <input type="text" class="form-control" name="unidadMedida" id="idUnidadMedida">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1" class="form-label">PRECIO</label>
+                      <input type="text" class="form-control" name="precio" id="idPrecio">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1" class="form-label">FECHA REGISTRO</label>
+                      <input type="date" class="form-control" name="fechRegistro" id="idFechaRegistro">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1" class="form-label">TIPO</label>
+                      <select class="form-control" name="codTipo" id="idTipo">
+                        <option value="" selected>[Seleccione TIPO]</option>
+                        <option th:each="bean:${listarTipoBienes}" th:utext="${bean.nomTipo}"
+                          th:value="${bean.codigo}" />
+                      </select>
+                    </div>
+
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary">Grabar</button>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                  </form>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+          
+          <!-- modal para eliminar -->
+          <div class="modal fade" id="modalEliminar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">Sistema</h5>
+                </div>
+                <div class="modal-body">
+                  <form id="idRegistrar" method="post" action="/admin/mantBienes/eliminar">
+                    <input type="hidden" class="form-control" name="codigoEliminar" id="codigoEliminar">
+                    <h4>Seguro de eliminar?</h4>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary">SI</button>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr />
+          
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="databienes" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>CÓDIGO</th>
+                      <th>DESCRIPCION</th>
+                      <th>AÑO DE REGISTRO</th>
+                      <th>TIPO</th>
+                      <th>UNIDAD DE MEDIDA</th>
+                      <th>PRECIO</th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!--ITEMS: RECUPERA EL ATRIBUTO  -->
+                    <tr th:each="row:${listarBienes}">
+                      <td th:text="${row.codigo}"></td>
+                      <td th:text="${row.descripcion}"></td>
+                      <td th:text="${row.fecharegistro}"></td>
+                      <td th:text="${row.tipoBien.nomTipo}"></td>
+                      <td th:text="${row.unidadMedida}"></td>
+                      <td th:text="${row.precio}"></td>
+                      <td><button type="button" class="btn btn-success" data-bs-toggle="modal"
+                          data-bs-target="#staticBackdrop">Editar</button></td>
+                      <td><button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                          data-bs-target="#modalEliminar">Eliminar</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer th:insert="menu :: copy" th:remove="tag"></footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div th:insert="menu :: usernav" th:remove="tag"></div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script th:src="@{/resources/vendor/jquery/jquery.min.js}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+  <script th:src="@{/resources/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  
+  <!-- Core plugin JavaScript-->
+  <script th:src="@{/resources/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script th:src="@{/resources/js/sb-admin-2.min.js}"></script>
+
+  <!-- Page level plugins -->
+  <script th:src="@{/resources/vendor/datatables/jquery.dataTables.min.js}"></script>
+  <script th:src="@{/resources/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+
+  <!-- Page level custom scripts -->
+  <script th:src="@{/resources/js/demo/datatables-demo.js}"></script>
+
+  <!--   validación-->
+  <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-validator/0.4.0/js/bootstrapValidator.js"></script>
+  
+  <!-- Notificacion TOAST -->
+   <div th:insert="menu :: toast" th:remove="tag"></div>
+  
+  <script>
+    $(document).ready(function () {
+      $('#databienes').DataTable({
+        "language": espaniol
+      });
+    });
+
+    $(document).on("click", ".btn-agregar", function () {
+      $.get("/admin/mantBienes/maxCodigo", function (response) {
+        document.querySelector("#idCodigo").value = response;
+      })
+      document.querySelector("#idDescripcion").value = "";
+      document.querySelector("#idUnidadMedida").value = "";
+      document.querySelector("#idPrecio").value = "";
+      document.querySelector("#idFechaRegistro").value = "";
+      document.querySelector("#idTipo").value = "";
+    })
+
+
+    $(document).on("click", ".btn-danger", function () {
+      let cod;
+      cod = $(this).parents("tr").find("td")[0].innerHTML;
+      $("#codigoEliminar").val(cod);
+
+    })
+    $(document).on("click", ".btn-success", function () {
+      let cod, fecha, fechaRegis;
+      cod = $(this).parents("tr").find("td")[0].innerHTML;
+      $.get("/admin/mantBienes/buscar?codigo=" + cod, function (response) {
+        document.querySelector("#idCodigo").value = response.codigo;
+        document.querySelector("#idDescripcion").value = response.descripcion;
+        document.querySelector("#idUnidadMedida").value = response.unidadMedida;
+        document.querySelector("#idPrecio").value = response.precio;
+        document.querySelector("#idFechaRegistro").value = response.fecharegistro;
+        document.querySelector("#idTipo").value = response.tipoBien.codigo;
+      })
+    })
+  </script>
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#idRegistrar').bootstrapValidator({
+        fields: {
+          decripcion: {
+            validators: {
+              notEmpty: { //validar si la caja esta vacía
+                message: 'Campo descripcion es obligatorio'
+              },
+            }
+          },
+
+          unidadMedida: {
+            validators: {
+              notEmpty: {
+                message: 'Campo unidad de medida es obligatorio'
+              },
+              regexp: {
+                regexp: /^[a-zA-Z\ñ\Ñ\s\á\é\í\ó\ú\Á\É\Í\Ó\Ú]{3,20}$/,
+                message: 'Campo paterno solo letras MIN:4 - MAX:25'
+              }
+            }
+          },
+          codTipo: {
+            validators: {
+              notEmpty: {
+                message: 'Campo tipo es obligatorio'
+              }
+            }
+          }
+        }
+      });
+    });
+    // Plug-in traductor a español
+    var espaniol = {
+      "processing": "Procesando...",
+      "lengthMenu": "Mostrar _MENU_ registros",
+      "zeroRecords": "No se encontraron resultados",
+      "emptyTable": "Ningún dato disponible en esta tabla",
+      "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+      "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+      "search": "Buscar:",
+      "infoThousands": ",",
+      "loadingRecords": "Cargando...",
+      "paginate": {
+        "first": "Primero",
+        "last": "Último",
+        "next": "Siguiente",
+        "previous": "Anterior"
+      },
+      "aria": {
+        "sortAscending": ": Activar para ordenar la columna de manera ascendente",
+        "sortDescending": ": Activar para ordenar la columna de manera descendente"
+      },
+      "buttons": {
+        "copy": "Copiar",
+        "colvis": "Visibilidad",
+        "collection": "Colección",
+        "colvisRestore": "Restaurar visibilidad",
+        "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
+        "copySuccess": {
+          "1": "Copiada 1 fila al portapapeles",
+          "_": "Copiadas %ds fila al portapapeles"
+        },
+        "copyTitle": "Copiar al portapapeles",
+        "csv": "CSV",
+        "excel": "Excel",
+        "pageLength": {
+          "-1": "Mostrar todas las filas",
+          "_": "Mostrar %d filas"
+        },
+        "pdf": "PDF",
+        "print": "Imprimir",
+        "renameState": "Cambiar nombre",
+        "updateState": "Actualizar",
+        "createState": "Crear Estado",
+        "removeAllStates": "Remover Estados",
+        "removeState": "Remover",
+        "savedStates": "Estados Guardados",
+        "stateRestore": "Estado %d"
+      },
+      "autoFill": {
+        "cancel": "Cancelar",
+        "fill": "Rellene todas las celdas con <i>%d<\/i>",
+        "fillHorizontal": "Rellenar celdas horizontalmente",
+        "fillVertical": "Rellenar celdas verticalmentemente"
+      },
+      "decimal": ",",
+      "searchBuilder": {
+        "add": "Añadir condición",
+        "button": {
+          "0": "Constructor de búsqueda",
+          "_": "Constructor de búsqueda (%d)"
+        },
+        "clearAll": "Borrar todo",
+        "condition": "Condición",
+        "conditions": {
+          "date": {
+            "after": "Despues",
+            "before": "Antes",
+            "between": "Entre",
+            "empty": "Vacío",
+            "equals": "Igual a",
+            "notBetween": "No entre",
+            "notEmpty": "No Vacio",
+            "not": "Diferente de"
+          },
+          "number": {
+            "between": "Entre",
+            "empty": "Vacio",
+            "equals": "Igual a",
+            "gt": "Mayor a",
+            "gte": "Mayor o igual a",
+            "lt": "Menor que",
+            "lte": "Menor o igual que",
+            "notBetween": "No entre",
+            "notEmpty": "No vacío",
+            "not": "Diferente de"
+          },
+          "string": {
+            "contains": "Contiene",
+            "empty": "Vacío",
+            "endsWith": "Termina en",
+            "equals": "Igual a",
+            "notEmpty": "No Vacio",
+            "startsWith": "Empieza con",
+            "not": "Diferente de",
+            "notContains": "No Contiene",
+            "notStartsWith": "No empieza con",
+            "notEndsWith": "No termina con"
+          },
+          "array": {
+            "not": "Diferente de",
+            "equals": "Igual",
+            "empty": "Vacío",
+            "contains": "Contiene",
+            "notEmpty": "No Vacío",
+            "without": "Sin"
+          }
+        },
+        "data": "Data",
+        "deleteTitle": "Eliminar regla de filtrado",
+        "leftTitle": "Criterios anulados",
+        "logicAnd": "Y",
+        "logicOr": "O",
+        "rightTitle": "Criterios de sangría",
+        "title": {
+          "0": "Constructor de búsqueda",
+          "_": "Constructor de búsqueda (%d)"
+        },
+        "value": "Valor"
+      },
+      "searchPanes": {
+        "clearMessage": "Borrar todo",
+        "collapse": {
+          "0": "Paneles de búsqueda",
+          "_": "Paneles de búsqueda (%d)"
+        },
+        "count": "{total}",
+        "countFiltered": "{shown} ({total})",
+        "emptyPanes": "Sin paneles de búsqueda",
+        "loadMessage": "Cargando paneles de búsqueda",
+        "title": "Filtros Activos - %d",
+        "showMessage": "Mostrar Todo",
+        "collapseMessage": "Colapsar Todo"
+      },
+      "select": {
+        "cells": {
+          "1": "1 celda seleccionada",
+          "_": "%d celdas seleccionadas"
+        },
+        "columns": {
+          "1": "1 columna seleccionada",
+          "_": "%d columnas seleccionadas"
+        },
+        "rows": {
+          "1": "1 fila seleccionada",
+          "_": "%d filas seleccionadas"
+        }
+      },
+      "thousands": ".",
+      "datetime": {
+        "previous": "Anterior",
+        "next": "Proximo",
+        "hours": "Horas",
+        "minutes": "Minutos",
+        "seconds": "Segundos",
+        "unknown": "-",
+        "amPm": [
+          "AM",
+          "PM"
+        ],
+        "months": {
+          "0": "Enero",
+          "1": "Febrero",
+          "10": "Noviembre",
+          "11": "Diciembre",
+          "2": "Marzo",
+          "3": "Abril",
+          "4": "Mayo",
+          "5": "Junio",
+          "6": "Julio",
+          "7": "Agosto",
+          "8": "Septiembre",
+          "9": "Octubre"
+        },
+        "weekdays": [
+          "Dom",
+          "Lun",
+          "Mar",
+          "Mie",
+          "Jue",
+          "Vie",
+          "Sab"
+        ]
+      },
+      "editor": {
+        "close": "Cerrar",
+        "create": {
+          "button": "Nuevo",
+          "title": "Crear Nuevo Registro",
+          "submit": "Crear"
+        },
+        "edit": {
+          "button": "Editar",
+          "title": "Editar Registro",
+          "submit": "Actualizar"
+        },
+        "remove": {
+          "button": "Eliminar",
+          "title": "Eliminar Registro",
+          "submit": "Eliminar",
+          "confirm": {
+            "_": "¿Está seguro que desea eliminar %d filas?",
+            "1": "¿Está seguro que desea eliminar 1 fila?"
+          }
+        },
+        "error": {
+          "system": "Ha ocurrido un error en el sistema (<a target=\"\\\" rel=\"\\ nofollow\" href=\"\\\">Más información&lt;\\\/a&gt;).<\/a>"
+        },
+        "multi": {
+          "title": "Múltiples Valores",
+          "info": "Los elementos seleccionados contienen diferentes valores para este registro. Para editar y establecer todos los elementos de este registro con el mismo valor, hacer click o tap aquí, de lo contrario conservarán sus valores individuales.",
+          "restore": "Deshacer Cambios",
+          "noMulti": "Este registro puede ser editado individualmente, pero no como parte de un grupo."
+        }
+      },
+      "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+      "stateRestore": {
+        "creationModal": {
+          "button": "Crear",
+          "name": "Nombre:",
+          "order": "Clasificación",
+          "paging": "Paginación",
+          "search": "Busqueda",
+          "select": "Seleccionar",
+          "columns": {
+            "search": "Búsqueda de Columna",
+            "visible": "Visibilidad de Columna"
+          },
+          "title": "Crear Nuevo Estado",
+          "toggleLabel": "Incluir:"
+        },
+        "emptyError": "El nombre no puede estar vacio",
+        "removeConfirm": "¿Seguro que quiere eliminar este %s?",
+        "removeError": "Error al eliminar el registro",
+        "removeJoiner": "y",
+        "removeSubmit": "Eliminar",
+        "renameButton": "Cambiar Nombre",
+        "renameLabel": "Nuevo nombre para %s",
+        "duplicateError": "Ya existe un Estado con este nombre.",
+        "emptyStates": "No hay Estados guardados",
+        "removeTitle": "Remover Estado",
+        "renameTitle": "Cambiar Nombre Estado"
+      }
+    }
+  </script>
+
+</body>
+
+</html>

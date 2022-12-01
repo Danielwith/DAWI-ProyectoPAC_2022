@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bienes_reporte" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dd1f7ef1-aa4e-4cd4-a948-a51e6182886c">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="idInscripcionPAC.nomEstado.nombre" class="java.lang.String"/>
+	<field name="idInscripcionPAC.nomEstado.RUC" class="java.lang.String"/>
+	<field name="idInscripcionPAC.ano_pac" class="java.lang.String"/>
+	<field name="idInscripcionPAC.fecha" class="java.sql.Date"/>
+	<field name="titulo" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="monto" class="java.lang.Double"/>
+	<field name="idInscripcionPAC.presupuesto" class="java.lang.Double"/>
+	<field name="codigo" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="55" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="447" height="30" uuid="2b3d8134-2c14-48bf-92b6-c16f3821eef8"/>
+				<textElement textAlignment="Left">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Inscripción de Plan Anual de Contratación de]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="420" y="10" width="135" height="30" uuid="a130c16c-9375-4e94-a231-2a2ff31571a7"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idInscripcionPAC.nomEstado.nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="160" splitType="Stretch">
+			<textField>
+				<reportElement x="120" y="10" width="100" height="30" uuid="5f7b9e94-6b27-4c31-97e9-c69b05c20727"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idInscripcionPAC.nomEstado.nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="10" width="100" height="30" uuid="97bc4aac-6a88-423a-90aa-a28a5c3fd5f9"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Entidad Pública: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="400" y="10" width="100" height="30" uuid="29f147ee-807f-4f92-a55c-bf30d9209a5c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idInscripcionPAC.nomEstado.RUC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="310" y="10" width="100" height="30" uuid="08185bb6-1bdb-40c1-b7ac-30ed0335a472"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RUC: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="120" y="60" width="100" height="30" uuid="2cb6aba3-735b-4880-afb2-fd4fffbcb961"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idInscripcionPAC.ano_pac}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="60" width="100" height="30" uuid="47a06e2c-237e-410c-8a1d-4d35e1a3efae"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Año PAC:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="400" y="60" width="100" height="30" uuid="6bcb9cd4-be25-4577-89d5-723b77912c86"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idInscripcionPAC.fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="310" y="60" width="100" height="30" uuid="3bff371d-2bdc-4b8e-841e-9cabf83aa830"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="-20" y="80" width="591" height="1" uuid="dd560f95-7c58-425b-bb12-c602d474c6eb"/>
+			</line>
+			<staticText>
+				<reportElement x="20" y="90" width="535" height="30" uuid="33a465d8-2175-41f4-8f1b-cddf72783328"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Detalle de Proyectos del Plan Anual de Contratación de ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="30" y="120" width="514" height="30" uuid="ccbb77d8-f3df-4514-a4b5-c2b150267973"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idInscripcionPAC.nomEstado.nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="49" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="100" height="30" uuid="926876bb-30a6-4207-be92-68200ee6ac30">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b502c26c-43f1-4163-a5ca-c1a13c8f30e5"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="10" width="100" height="30" uuid="5bbf3d9f-12cf-4181-8351-72424eee2c95">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="51780041-27ae-4ff0-9108-fc94360ae338"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TITULO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="11" width="100" height="30" uuid="06048633-8d87-461b-b0aa-7a00f7e4006e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1312c59f-fd83-4ae8-8163-2fe2607778e6"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIPCION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="10" width="100" height="30" uuid="9b9ed06c-2ddb-44d6-9721-96468d673fb4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5b228aa4-a508-4416-b77c-ce002239cc13"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[MONTO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="58" splitType="Stretch">
+			<textField>
+				<reportElement x="80" y="20" width="100" height="30" uuid="ade002e0-3b48-436e-9ba8-ea44c0f8a83b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="51780041-27ae-4ff0-9108-fc94360ae338"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="21" width="100" height="30" uuid="15583dcf-0d2a-4239-81ad-0b816e227a6e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1312c59f-fd83-4ae8-8163-2fe2607778e6"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="20" width="100" height="30" uuid="01a2d71b-9b18-4fc1-92d2-5e0a12f38827">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5b228aa4-a508-4416-b77c-ce002239cc13"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="20" width="100" height="30" uuid="b2a6f82a-8385-4d90-be7e-0bda02324aac">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e6cec33-9573-404f-9740-d232e1894987"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="53" splitType="Stretch">
+			<textField>
+				<reportElement x="460" y="20" width="100" height="30" uuid="92ba802f-db70-4649-aeff-3c79f78eef0e"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idInscripcionPAC.presupuesto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="280" y="20" width="180" height="30" uuid="12f42215-7f75-4235-bb81-8fc8609614e9"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Presupuesto Total del PAC:]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

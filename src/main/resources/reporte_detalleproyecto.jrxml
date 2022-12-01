@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte_detalleproyecto" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1a8c216a-23f0-403b-8d92-d4dd08f9ef2c">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="codProyecto.idproyecto.titulo" class="java.lang.String"/>
+	<field name="codProyecto.idproyecto.idInscripcionPAC.ano_pac" class="java.lang.String"/>
+	<field name="codProyecto.identidad.nombre" class="java.lang.String"/>
+	<field name="codProyecto.idproyecto.idInscripcionPAC.fecha" class="java.sql.Date"/>
+	<field name="codBien.tipoBien.nomTipo" class="java.lang.String"/>
+	<field name="codBien.descripcion" class="java.lang.String"/>
+	<field name="codBien.precio" class="java.lang.Double"/>
+	<field name="cantidad" class="java.lang.Integer"/>
+	<field name="subtotal" class="java.lang.Double"/>
+	<field name="codProyecto.subtotal" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="57" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="10" width="558" height="30" uuid="5eb71abd-b63c-4c39-884e-d66b7a01bd78"/>
+				<textElement textAlignment="Center">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Reporte de Detalle de Bienes y Servicios]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="91" splitType="Stretch">
+			<textField>
+				<reportElement x="20" y="50" width="180" height="30" uuid="cd78e05a-b8da-4754-8f8f-a75ff4c1dadc"/>
+				<textFieldExpression><![CDATA[$F{codProyecto.idproyecto.titulo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="10" width="100" height="30" uuid="41e372a8-d908-4a84-bc44-8e90540aeccb"/>
+				<textElement textAlignment="Left" rotation="None" markup="none">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Proyecto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="10" width="100" height="30" uuid="079d7835-1632-497b-8a19-17651757e3d4"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Año del PAC]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="220" y="50" width="100" height="30" uuid="b0c277fe-58d5-4640-b408-12273128ed06"/>
+				<textFieldExpression><![CDATA[$F{codProyecto.idproyecto.idInscripcionPAC.ano_pac}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="340" y="10" width="100" height="30" uuid="4754cc8d-39e2-4c1c-9ab0-2f9ab9124674"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Entidad Publica]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="340" y="50" width="100" height="30" uuid="8a56d208-b4bc-42fc-bb89-c6d216142cd1"/>
+				<textFieldExpression><![CDATA[$F{codProyecto.identidad.nombre}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="-20" y="80" width="589" height="1" uuid="34b2e051-329d-47b2-a942-7c8c4381bfc0"/>
+			</line>
+			<line>
+				<reportElement x="-21" y="30" width="589" height="1" uuid="3c393b00-142e-4080-a444-896d5069f5a5"/>
+			</line>
+			<line>
+				<reportElement x="-20" y="90" width="589" height="1" uuid="aa73da4a-cac3-4ee4-9a39-b02249108eca"/>
+			</line>
+			<staticText>
+				<reportElement x="460" y="10" width="100" height="19" uuid="55cb61d1-2f0e-44a7-931e-61e916f66e58"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Fecha Registro]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="460" y="50" width="100" height="30" uuid="2c99b6b1-3b86-475f-9f3e-db0a67ae3744"/>
+				<textFieldExpression><![CDATA[$F{codProyecto.idproyecto.idInscripcionPAC.fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="49" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="9" width="100" height="30" uuid="0f730bdb-321b-4f96-a8b5-e4c646e74443">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4688b45-1f05-4f04-8c99-a0f91cf6d2ac"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[TIPO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="10" width="100" height="30" uuid="4e9cdbff-7a3e-45b1-bcee-019571a1927a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="df19a4dc-4853-4d0e-941f-22685ca42b74"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[DESCRIPCIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="239" y="10" width="100" height="30" uuid="c1216f3d-6392-4834-a11a-e5efe99cd68c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a15b5929-7ca8-4f8c-8fcc-d822f8d14f45"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[PRECIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="10" width="100" height="30" uuid="82087321-2c09-4e6e-9190-504acca6e02c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="321bd3e1-724d-45ec-8c32-2709b05125b3"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[CANTIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="9" width="100" height="30" uuid="5899bcab-9b26-4969-b8f9-ab7e54d2ab00">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0ea90877-dad5-4bdb-be88-13a2c59cea9b"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[SUBTOTAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="0" width="100" height="30" uuid="7d283ccb-e049-48be-b785-397bb730498f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4688b45-1f05-4f04-8c99-a0f91cf6d2ac"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{codBien.tipoBien.nomTipo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="1" width="100" height="30" uuid="33d2a8d4-8ff4-40a7-933b-7f8d360789f1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="df19a4dc-4853-4d0e-941f-22685ca42b74"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{codBien.descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="4" width="100" height="30" uuid="bb47d284-dd52-4263-a17d-4a27e37c84c6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a15b5929-7ca8-4f8c-8fcc-d822f8d14f45"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{codBien.precio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="1" width="100" height="30" uuid="e0310a0d-020c-4abd-8ede-a746db847f3e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="321bd3e1-724d-45ec-8c32-2709b05125b3"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="1" width="100" height="30" uuid="e3db8af1-9427-4bf5-9955-27e767abbe68">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0ea90877-dad5-4bdb-be88-13a2c59cea9b"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="57" splitType="Stretch">
+			<textField>
+				<reportElement x="450" y="20" width="100" height="30" uuid="1f7c367c-6a66-4404-8443-775da7ab8daf"/>
+				<textFieldExpression><![CDATA[$F{codProyecto.subtotal}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="-20" y="9" width="589" height="1" uuid="18dd6fad-e619-4f64-a28f-d6ebdeddcf42"/>
+			</line>
+			<staticText>
+				<reportElement x="340" y="20" width="100" height="30" uuid="903b4113-386e-4174-8eb0-742c00423d48"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Monto Total:]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="227" y="20" width="100" height="30" uuid="400b5186-c150-420e-bf2b-0fd062fbac6a"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="51" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Mantenimiento Entidad Pública</title>
+
+  <!-- Custom fonts for this template -->
+  <link th:href="@{/resources/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link th:href="@{/resources/css/sb-admin-2.min.css}" rel="stylesheet">
+
+  <!-- Custom styles for this page -->
+  <link th:href="@{/resources/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul th:insert="menu :: sidebar" th:remove="tag"></ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav th:insert="menu :: topbar" th:remove="tag"></nav>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800 text-center">Mantenimiento de Entidad Pública</h1>
+          <br />
+          <br />
+
+          <!-- botón de registrar para abrir modal -->
+          <div class="d-grid gap-2">
+            <button class="btn btn-success btn-registrar" type="button" data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop">Registrar Nueva Entidad
+              <i class="fa-solid fa-circle-plus"></i></button>
+          </div>
+
+          <!-- MODAL PARA REGISTRAR -->
+          <div class="modal fade" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">REGISTRAR</h5>
+                </div>
+                <div class="modal-body">
+                  <form action="/admin/mantEntidad/grabar" id="idRegistra" method="post">
+                    <div class="form-group">
+                      <input type="hidden" class="form-control" name="codigo" id="idcodigo" readonly="readonly"
+                        value="0">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1" class="form-label">Nombre</label>
+                      <input type="text" class="form-control" name="nombre" id="idnombre">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1" class="form-label">RUC</label>
+                      <input type="text" class="form-control" name="ruc" id="idruc">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1" class="form-label">Dirección Postal</label>
+                      <input type="text" class="form-control" name="direccion" id="iddireccion">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1" class="form-label">Email</label>
+                      <input type="text" class="form-control" name="email" id="idemail">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1" class="form-label">Teléfono</label>
+                      <input type="text" class="form-control" name="telefono" id="idtelefono">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1" class="form-label">Contraseña de la Entidad</label>
+                      <input type="password" class="form-control" name="usercontraseña" id="idusercontra">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1" class="form-label">Usuario Actual</label>
+                      <input type="text" class="form-control" name="usuario" id="idusuario">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+                      <input type="password" class="form-control" name="contraseña" id="idcontraseña">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1" class="form-label">Confirmar Contraseña</label>
+                      <input type="password" class="form-control" name="confirmar" id="idconfirmar">
+                    </div>
+                    <div class="modal-footer" id="botones">
+                      <button type="submit" class="btn btn-success">Grabar</button>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MODAL PARA MODIFICAR -->
+          <div class="modal fade" id="modalModificar" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">MODIFICAR</h5>
+                </div>
+                <div class="modal-body">
+
+                  <form action="/admin/mantEntidad/grabar" id="idModifica" method="post">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1" class="form-label">ID</label>
+                      <input type="text" class="form-control" name="codigo" id="id_codigo" readonly="readonly"
+                        value="0">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1" class="form-label">Nombre</label>
+                      <input type="text" class="form-control" name="nombre" id="id_nombre">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1" class="form-label">RUC</label>
+                      <input type="text" class="form-control" name="ruc" id="id_ruc">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1" class="form-label">Dirección Postal</label>
+                      <input type="text" class="form-control" name="direccion" id="id_direccion">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1" class="form-label">Email</label>
+                      <input type="text" class="form-control" name="email" id="id_email">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1" class="form-label">Teléfono</label>
+                      <input type="text" class="form-control" name="telefono" id="id_telefono">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1" class="form-label">Cambiar Contraseña (Opcional)</label>
+                      <input type="password" class="form-control" name="usercontraseña" id="id_usercontra" value="">
+                    </div>
+                    <!-- Ignorar estos dos form-group -->
+                    <div class="form-group d-none">
+                      <label for="exampleInputPassword1" class="form-label">Usuario</label>
+                      <input type="text" class="form-control" name="usuario" id="idusuario">
+                    </div>
+                    <div class="form-group d-none">
+                      <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+                      <input type="password" class="form-control" name="contraseña" id="idcontraseña">
+                    </div>
+                    <!-- Fin -->
+                    <div class="modal-footer" id="botones">
+                      <button type="submit" class="btn btn-warning">Grabar</button>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+
+                  </form>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="databienes" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Nombre</th>
+                      <th>RUC</th>
+                      <th>Dirección Postal</th>
+                      <th>Email</th>
+                      <th>Teléfono</th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!--ITEMS: RECUPERA EL ATRIBUTO  -->
+                    <tr th:each="row:${listarEntidades}">
+                      <td th:text="${row.idEntidad}"></td>
+                      <td th:text="${row.nombre}"></td>
+                      <td th:text="${row.RUC}"></td>
+                      <td th:text="${row.direccion_postal}"></td>
+                      <td th:text="${row.email}"></td>
+                      <td th:text="${row.telefono}"></td>
+                      <td><button type="button" class="btn btn-success btn-editar" data-bs-toggle="modal"
+                          data-bs-target="#modalModificar">Editar</button></td>
+                      <td><button type="button" class="btn btn-danger btn-eliminar" data-bs-toggle="modal"
+                          data-bs-target="#modalEliminar">Eliminar</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- modal para eliminar -->
+                <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Eliminar</h5>
+                      </div>
+                      <div class="modal-body">¿Seguro que deseas eliminar?</div>
+                      <div class="modal-footer">
+                        <form action="/admin/mantEntidad/eliminar" id="idElimina" method="post">
+                          <input type="hidden" class="form-control" name="codEliminar" id="idCodEliminar">
+                          <button type="submit" class="btn btn-danger">SI</button>
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer th:insert="menu :: copy" th:remove="tag"></footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div th:insert="menu :: usernav" th:remove="tag"></div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script th:src="@{/resources/vendor/jquery/jquery.min.js}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+  <script th:src="@{/resources/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script th:src="@{/resources/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script th:src="@{/resources/js/sb-admin-2.min.js}"></script>
+
+  <!-- Page level plugins -->
+  <script th:src="@{/resources/vendor/datatables/jquery.dataTables.min.js}"></script>
+  <script th:src="@{/resources/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+
+  <!-- Page level custom scripts -->
+  <script th:src="@{/resources/js/demo/datatables-demo.js}"></script>
+
+  <!--   validación-->
+  <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-validator/0.4.0/js/bootstrapValidator.js"></script>
+  
+  <!-- Notificacion TOAST -->
+   <div th:insert="menu :: toast" th:remove="tag"></div>
+
+  <!-- llenar datos -->
+  <script>
+    $(document).ready(function () {
+      //variables
+      var pass1 = $('[name=contraseña]');
+      var pass2 = $('[name=confirmar]');
+      var confirmacion = "Las contraseñas si coinciden";
+      var negacion = "No coinciden las contraseñas";
+      //oculto por defecto el elemento span
+      var mensaje = $('<span></span>').insertAfter(pass2);
+      mensaje.hide();
+      //función que comprueba las dos contraseñas
+      function coincidePassword() {
+        var valor1 = pass1.val();
+        var valor2 = pass2.val();
+        //muestro el mensaje
+        mensaje.show().removeClass();
+        //condiciones dentro de la función
+        if (valor1 != valor2) {
+          mensaje.text(negacion).addClass('negacion');
+        }
+        if (valor1 == valor2) {
+          mensaje.text(confirmacion).removeClass("negacion").addClass('confirmacion');
+        }
+      }
+      //ejecuto la función al soltar la tecla
+      pass2.keyup(function () {
+        coincidePassword();
+      });
+    });
+
+    //modificar
+    $(document).on("click", ".btn-editar", function () {
+      let codigo, nombre, ruc, direccion, email, telefono;
+      codigo = $(this).parents("tr").find("td")[0].innerHTML;
+      nombre = $(this).parents("tr").find("td")[1].innerHTML;
+      ruc = $(this).parents("tr").find("td")[2].innerHTML;
+      direccion = $(this).parents("tr").find("td")[3].innerHTML;
+      email = $(this).parents("tr").find("td")[4].innerHTML;
+      telefono = $(this).parents("tr").find("td")[5].innerHTML;
+      $("#id_codigo").val(codigo);
+      $("#id_nombre").val(nombre);
+      $("#id_ruc").val(ruc);
+      $("#id_direccion").val(direccion);
+      $("#id_email").val(email);
+      $("#id_telefono").val(telefono);
+      //cambiando estilos para modificar
+      $('.modal-title').text('Modificar');
+
+    })
+
+    //eliminar 
+    $(document).on("click", ".btn-eliminar", function () {
+      let codigo;
+      codigo = $(this).parents("tr").find("td")[0].innerHTML;
+      $("#idCodEliminar").val(codigo);
+      //cambiando estilos para eliminar
+    })
+    //registrar
+    $(document).on("click", ".btn-registrar", function () {
+      //cambiando estilos para registrar
+      $('.modal-title').text('Registrar');
+      $("#idcodigo").val("0");
+      $("#idnombre").val("");
+      $("#idruc").val("");
+      $("#iddireccion").val("");
+      $("#idusercontra").val("");
+      $("#idemail").val("");
+      $("#idtelefono").val("");
+      
+
+    })
+  </script>
+  <!-- SCRIPT VALIDATOR -->
+  <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-validator/0.4.0/js/bootstrapValidator.js"></script>
+  <!-- validator excepciones -->
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $("#idRegistra").bootstrapValidator({
+        fields: {
+          nombre: {
+            validators: {
+              notEmpty: {
+                message: 'Campo Nombre Entidad Obligatorio'
+              },
+              regexp: {
+                regexp: /^[a-zA-ZñÑáéí óúÁÉÍÓÚ´]+$/,
+                message: 'Campo Nombre Entidad solo letras'
+              }
+            }
+          }, ruc: {
+            validators: {
+              notEmpty: {
+                message: 'Campo RUC Obligatorio'
+              },
+              regexp: {
+                regexp: /^[0-9]+$/,
+                message: 'Campo RUC solo números'
+              },
+              stringLength: {
+                min: 10,
+                max: 10,
+                message: 'Colocar 10 dígitos'
+              }
+            }
+          }, direccion: {
+            validators: {
+              notEmpty: {
+                message: 'Campo Dirección Obligatorio'
+              }
+            }
+          }, email: {
+            validators: {
+              notEmpty: {
+                message: 'Campo E-mail Obligatorio'
+              },
+              emailAddress: {
+                message: 'Inserte email valido'
+              }
+            }
+          }, telefono: {
+            validators: {
+              notEmpty: {
+                message: 'Campo Telefono Obligatorio'
+              },
+              regexp: {
+                regexp: /^[0-9]+$/,
+                message: 'Campo Telefono solo números'
+              },
+              stringLength: {
+                min: 9,
+                max: 9,
+                message: 'Colocar 9 dígitos'
+              }
+            }
+          }, usuario: {
+            validators: {
+              notEmpty: {
+                message: 'Campo Usuario Obligatorio'
+              },
+              regexp: {
+                regexp: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ´]+$/,
+                message: 'Campo Usuario solo letras'
+              }
+
+            }
+          },
+          contraseña: {
+            validators: {
+              notEmpty: {
+                message: 'Campo Contraseña Obligatorio'
+              }, stringLength: {
+                min: 8,
+                max: 8,
+                message: 'Contraseña debe ser de 8 dígitos'
+              }
+
+            }
+          }, confirmar: {
+            validators: {
+              notEmpty: {
+                message: 'Campo Confirmar Contraseña Obligatorio'
+              }
+            }
+          }
+        }
+      });
+    });
+
+    $(document).ready(function () {
+      $("#idModifica").bootstrapValidator({
+        fields: {
+          nombre: {
+            validators: {
+              notEmpty: {
+                message: 'Campo Nombre Entidad Obligatorio'
+              },
+              regexp: {
+                regexp: /^[a-zA-ZñÑáéí óúÁÉÍÓÚ´]+$/,
+                message: 'Campo Nombre Entidad solo letras'
+              }
+            }
+          }, ruc: {
+            validators: {
+              notEmpty: {
+                message: 'Campo RUC Obligatorio'
+              },
+              regexp: {
+                regexp: /^[0-9]+$/,
+                message: 'Campo RUC solo números'
+              },
+              stringLength: {
+                min: 10,
+                max: 10,
+                message: 'Colocar 10 dígitos'
+              }
+            }
+          }, direccion: {
+            validators: {
+              notEmpty: {
+                message: 'Campo Dirección Obligatorio'
+              }
+            }
+          }, email: {
+            validators: {
+              notEmpty: {
+                message: 'Campo E-mail Obligatorio'
+              },
+              emailAddress: {
+                message: 'Inserte email valido'
+              }
+            }
+          }, telefono: {
+            validators: {
+              notEmpty: {
+                message: 'Campo Telefono Obligatorio'
+              },
+              regexp: {
+                regexp: /^[0-9]+$/,
+                message: 'Campo Telefono solo números'
+              },
+              stringLength: {
+                min: 9,
+                max: 9,
+                message: 'Colocar 9 dígitos'
+              }
+            }
+          }
+        }
+      });
+    });
+  </script>
+
+</body>
+
+</html>
