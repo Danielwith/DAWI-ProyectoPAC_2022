@@ -158,12 +158,10 @@
 		});
 		
 		$(document).on("click", ".btn-buscar", function () {
-			
       let idInicio,idFin;
       idInicio = $("#iddateini").val();
       idFin = $("#iddateend").val();
       $.get("/entidad/listDetalle/filtrar?dateini=" + idInicio+"&&dateend="+idFin, function (response) {
-	console.log(response)
         $("#tablePac tbody").empty();
         $.each(response, function (index, item) {
           $("#tablePac").append("<tr><td>" + item.codigo + "</td><td>" +
@@ -171,7 +169,7 @@
             item.fechaReg + "</td><td>" +
             item.subtotal + "</td><td>" +
             item.idproyecto.titulo + "</td><td>" +
-            "<button type='button' class='btn btn-danger btn-pdf'><i class='fa fa-file-pdf'</i></button></td></tr>")
+            "<button type='submit' class='btn btn-danger btn-pdf'><i class='fa fa-file-pdf'</i></button></td></tr>")
         });
       });
     })

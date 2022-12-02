@@ -5,6 +5,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import net.contratacion.entity.Bienes;
 import net.contratacion.entity.DetalleProyecto;
@@ -21,11 +22,13 @@ class ProyectoPac2022ApplicationTests {
 	
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncode;
 	@Test
 	void contextLoads() {
-		boolean f = usuarioService.checkEmail("xd");
+		System.out.println("PASSWORD. ---> "+passwordEncode.encode("admin123"));
 		
-		System.out.println(f);
 		
 		
 	}
